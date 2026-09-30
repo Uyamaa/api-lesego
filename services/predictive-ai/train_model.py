@@ -1,9 +1,14 @@
+import time
+
 """
 Trains a small KNN model on SYNTHETIC data, matching the 9 SMART fields
 your API will use. This proves the training -> saving -> loading -> serving
 chain works end to end. Swap this script's data source for real Backblaze
 CSVs later -- nothing else in the project needs to change.
 """
+
+# Start the clock
+start_time = time.perf_counter()
 
 import numpy as np
 import joblib
@@ -72,8 +77,10 @@ model.fit(X_scaled, y)
 # --- 4. Save both files ---
 # Both MUST be loaded together at serving time -- the model alone is useless
 # without the exact scaler it was trained with.
-joblib.dump(model, "hdd_model.pkl")
-joblib.dump(scaler, "hdd_scaler.pkl")
+joblib.dump(model, "model/hdd_model.pkl")
+joblib.dump(scaler, "model/hdd_scaler.pkl")
 
-print("Saved hdd_model.pkl and hdd_scaler.pkl")
+end_time = time.perf_counter()
+print(f"Training time: {end_time - start_time:.2f} seconds")
+print("Saved model/hdd_model.pkl and model/hdd_scaler.pkl")
 print(f"Feature order (must match model_loader.py exactly): {FEATURE_NAMES}")
