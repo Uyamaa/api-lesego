@@ -1,8 +1,10 @@
-import joblib 
+import os
+import joblib
 
-#Loaded both files at once, as the model alone is useless without the exact scaler it was trained with.
-model = joblib.load("model/hdd_model.pkl")
-scaler = joblib.load("model/hdd_scaler.pkl")    
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "model")
+
+model = joblib.load(os.path.join(MODEL_DIR, "hdd_model.pkl"))
+scaler = joblib.load(os.path.join(MODEL_DIR, "hdd_scaler.pkl"))
 
 def predict_failure(features):
     features_scaled = scaler.transform([features])  # Scale the features using the loaded scaler
