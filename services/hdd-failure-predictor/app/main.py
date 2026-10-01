@@ -1,24 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from schemas import PredictRequest, PredictResponse
 from model_loader import predict_failure, risk_level_from_probability
-from databaseCN import get_latest_reading
+from databaseCN import get_latest_reading, check_connection
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
-
-#a simple automated status checker
-@app.get("/health")
-def db_ok = check_connection()
-    model_ok = model is not None and scaler is not None
-    healthy = db_ok and model_ok
-
-    return JSONResponse(
-        status_code=200 if healthy else 503,
-        content={
-            "status": "ok" if healthy else "degraded",
-            "database": "up" if db_ok else "down",
-            "model": "loaded" if model_ok else "missing",
-        },
-    )
 
 #this endpoint actively receives new data
 @app.post("/predict", response_model=PredictResponse)

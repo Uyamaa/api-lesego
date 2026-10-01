@@ -12,14 +12,3 @@ def get_latest_reading(drive_id):
     cursor.close()
     conn.close()
     return row
-
-def check_connection():
-    try:
-        conn = psycopg2.connect(os.getenv("DATABASE_URL"), connect_timeout=3)
-        cursor = conn.cursor()
-        cursor.execute("SELECT 1")
-        cursor.close()
-        conn.close()
-        return True
-    except Exception:
-        return False
