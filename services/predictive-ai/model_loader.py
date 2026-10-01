@@ -17,3 +17,4 @@ def risk_level_from_probability(probability):
     else:
         return "Low"
 
+
