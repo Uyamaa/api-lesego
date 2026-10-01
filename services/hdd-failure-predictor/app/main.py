@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from schemas import PredictRequest, PredictResponse
 from model_loader import predict_failure, risk_level_from_probability
-
-
+from databaseCN import get_latest_reading
 
 app = FastAPI()
 
