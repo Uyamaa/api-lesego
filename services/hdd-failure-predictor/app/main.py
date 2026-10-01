@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from schemas import PredictRequest, PredictResponse
 from model_loader import predict_failure, risk_level_from_probability
 from databaseCN import get_latest_reading
@@ -31,3 +31,4 @@ def predict(request: PredictRequest):
         failure_probability=failure_probability,
         risk_level=risk_level
     )
+
